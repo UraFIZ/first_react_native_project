@@ -1,91 +1,77 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-plusplus */
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-// eslint-disable-next-line import/no-extraneous-dependencies
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { connect } from 'react-redux';
-import PlaceInput from './src/components/PlaceInput/PlaceInput';
-// eslint-disable-next-line import/no-named-as-default
-import PlaceList from './src/components/PlaceList/PlaceList';
-import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
-import { addPlace, deletePlace, selectPlace, unselectPlace } from './src/store/actions/actions';
+/* eslint-disable react/prefer-stateless-function */
+import React from 'react';
+import {
+  createAppContainer,
+  createStackNavigator,
+  createBottomTabNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
+import { View, Text } from 'react-native';
+import AuthScreen from './src/screen/Auth/Auth';
+import FindPlaceScreen from './src/screen/FindPlace/FindPlace';
+import SharePlaceScreen from './src/screen/SharePlace/SharePlace';
 
-class App extends Component {
-  onPressButton = placeName => {
-    this.props.addPlace(placeName);
-  };
-
-  onItemSelected = key => {
-    this.props.selectPlace(key);
-  };
-
-  onItemDeleted = () => {
-    this.props.deletePlace();
-  };
-
-  onItemClosed = () => {
-    this.props.unselectPlace();
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <PlaceDetail
-            selectedPlace={this.props.selectedPlace}
-            onItemDeleted={this.onItemDeleted}
-            onItemClosed={this.onItemClosed}
-          />
-          <PlaceInput onPressButton={this.onPressButton} />
-        </View>
-        <View style={styles.placeListWrapper}>
-          <PlaceList places={this.props.places} onItemSelected={this.onItemSelected} />
-        </View>
-      </View>
-    );
-  }
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    marginHorizontal: 20,
-  },
-  inputContainer: {
-    marginTop: 20,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  placeListWrapper: {
-    width: '100%',
+const CentredText = () => (
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Text style={{ fontSize: 18, color: 'white' }}>Auth</Text>
+  </View>
+);
+const findStack = createStackNavigator({ FindPlaceScreen });
+const shartStack = createStackNavigator({ SharePlaceScreen });
+const authNav = createStackNavigator({ AuthScreen });
+authNav.navigationOptions = () => ({
+  title: 'Auth',
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: 'red',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   },
 });
-const mapStateToProps = ({ places }) => {
-  return {
-    places: places.places,
-    selectedPlace: places.selectedPlace,
-  };
-};
-/* const mapDispatchToProps = dispatch => {
-  return {
-    onAddPlace: name => dispatch(addPlace(name)),
-    onDeletePlace: () => dispatch(deletePlace()),
-    onSelectPlace: key => dispatch(selectPlace(key)),
-    onUnselectPlace: () => dispatch(unselectPlace()),
-  };
-}; */
-export default connect(
-  mapStateToProps,
-  { addPlace, deletePlace, selectPlace, unselectPlace },
-)(App);
+
+const Nav = createBottomTabNavigator(
+  {
+    find: findStack,
+    share: shartStack,
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: '#e91e63',
+      labelStyle: {
+        fontSize: 12,
+      },
+      style: {
+        backgroundColor: 'blue',
+      },
+    },
+  },
+);
+
+const Swetch = createSwitchNavigator(
+  {
+    authNav,
+    Nav,
+  },
+  {
+    initialRouteName: 'authNav',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: 'red',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  },
+);
+
+const CreateApp = createAppContainer(Swetch);
+export default class App extends React.Component {
+  render() {
+    return <CreateApp />;
+  }
+}
