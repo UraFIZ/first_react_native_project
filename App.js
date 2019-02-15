@@ -10,6 +10,7 @@ import { View, Text } from 'react-native';
 import AuthScreen from './src/screen/Auth/Auth';
 import FindPlaceScreen from './src/screen/FindPlace/FindPlace';
 import SharePlaceScreen from './src/screen/SharePlace/SharePlace';
+import NavigationService from './NavigationService';
 
 const CentredText = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -19,7 +20,7 @@ const CentredText = () => (
 const findStack = createStackNavigator({ FindPlaceScreen });
 const shartStack = createStackNavigator({ SharePlaceScreen });
 const authNav = createStackNavigator({ AuthScreen });
-authNav.navigationOptions = () => ({
+authNav.navigationOptions = {
   titleHeader: <CentredText />,
   defaultNavigationOptions: {
     headerStyle: {
@@ -30,7 +31,7 @@ authNav.navigationOptions = () => ({
       fontWeight: 'bold',
     },
   },
-});
+};
 
 const Nav = createBottomTabNavigator(
   {
@@ -71,7 +72,22 @@ const Swetch = createSwitchNavigator(
 
 const CreateApp = createAppContainer(Swetch);
 export default class App extends React.Component {
+  state = {
+    name: 'Anna',
+    age: 33,
+  };
+
   render() {
-    return <CreateApp />;
+    return (
+      <CreateApp
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+        screenProps={{
+          name: this.state.name,
+          age: this.state.age,
+        }}
+      />
+    );
   }
 }

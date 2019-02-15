@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Button } from 'react-native-elements';
+import NavigationService from '../../../NavigationService';
 
 class LogoTitle extends React.Component {
   render() {
@@ -18,8 +19,8 @@ export default class FindPlace extends Component {
       title: navigation.state.routeName,
       headerRight: (
         <Button
-          onPress={() => navigation.navigate('share', { name: 'blabla' })}
-          title="Settings"
+          onPress={() => navigation.navigate('SharePlaceScreen', { name: 'blabla' })}
+          title="Share"
           color="rgba(0,122,255,1)"
           backgroundColor="rgba(0,0,0,0)"
         />
@@ -28,9 +29,11 @@ export default class FindPlace extends Component {
   };
 
   render() {
+    console.log(this.props);
+
     return (
       <Button
-        onPress={() => this.props.navigation.navigate('share')}
+        onPress={() => NavigationService.navigate('SharePlaceScreen', { name: 'blabla' })}
         title="Share"
         color="rgba(0,122,255,1)"
         backgroundColor="rgba(0,0,0,0)"
