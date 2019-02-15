@@ -1,7 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import {
-  createAppContainer,
   createStackNavigator,
   createBottomTabNavigator,
   createSwitchNavigator,
@@ -70,7 +69,6 @@ const Swetch = createSwitchNavigator(
   },
 );
 
-const CreateApp = createAppContainer(Swetch);
 export default class App extends React.Component {
   state = {
     name: 'Anna',
@@ -79,7 +77,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <CreateApp
+      <Swetch
         ref={navigatorRef => {
           NavigationService.setTopLevelNavigator(navigatorRef);
         }}
