@@ -7,7 +7,9 @@ import { withNavigation } from 'react-navigation';
 class SharePlace extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('otherParam'),
+      title: !navigation.getParam('otherParam')
+        ? navigation.state.routeName
+        : navigation.getParam('otherParam'),
     };
   };
 

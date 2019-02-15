@@ -20,7 +20,7 @@ const findStack = createStackNavigator({ FindPlaceScreen });
 const shartStack = createStackNavigator({ SharePlaceScreen });
 const authNav = createStackNavigator({ AuthScreen });
 authNav.navigationOptions = () => ({
-  title: 'Auth',
+  titleHeader: <CentredText />,
   defaultNavigationOptions: {
     headerStyle: {
       backgroundColor: 'red',

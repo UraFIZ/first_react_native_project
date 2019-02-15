@@ -31,7 +31,7 @@ export default class FindPlace extends Component {
     return (
       <Button
         onPress={() => this.props.navigation.navigate('share')}
-        title="Settings"
+        title="Share"
         color="rgba(0,122,255,1)"
         backgroundColor="rgba(0,0,0,0)"
       />
