@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import {
@@ -10,13 +11,14 @@ import AuthScreen from './src/screen/Auth/Auth';
 import FindPlaceScreen from './src/screen/FindPlace/FindPlace';
 import SharePlaceScreen from './src/screen/SharePlace/SharePlace';
 import NavigationService from './NavigationService';
+import PlaceDetailScreen from './src/screen/PlaceDetail/PlaceDetail';
 
 const CentredText = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <Text style={{ fontSize: 18, color: 'white' }}>Auth</Text>
   </View>
 );
-const findStack = createStackNavigator({ FindPlaceScreen });
+const findStack = createStackNavigator({ FindPlaceScreen, PlaceDetailScreen });
 const shartStack = createStackNavigator({ SharePlaceScreen });
 const authNav = createStackNavigator({ AuthScreen });
 authNav.navigationOptions = {
