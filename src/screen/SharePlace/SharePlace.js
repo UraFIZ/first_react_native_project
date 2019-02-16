@@ -1,8 +1,9 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { Button } from 'react-native-elements';
-import { withNavigation } from 'react-navigation';
+import { Text, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import PlaceInput from '../../components/PlaceInput/PlaceInput';
+import { addPlace } from '../../store/actions/actions';
 
 class SharePlace extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -13,17 +14,31 @@ class SharePlace extends Component {
     };
   };
 
+  placeAddedHadler = placeName => {
+    this.props.addPlace(placeName);
+  };
+
   render() {
     console.log(this.props);
     return (
-      <View>
-        <Button
-          title="Update the title"
-          onPress={() => this.props.navigation.setParams({ otherParam: 'Updated!' })}
-        />
-        <Button title="Go back" onPress={() => this.props.navigation.navigate('find')} />
+      <View style={styles.container}>
+        <PlaceInput onPressButton={this.placeAddedHadler} />
       </View>
     );
   }
 }
-export default withNavigation(SharePlace);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 26,
+    backgroundColor: '#fff',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+});
+
+export default connect(
+  null,
+  { addPlace },
+)(SharePlace);

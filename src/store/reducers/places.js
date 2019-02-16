@@ -2,7 +2,6 @@ import { ADD_PLACE, DELETE_PLACE, SELECT_PLACE, UNSELECT_PLACE } from '../action
 
 const initialState = {
   places: [],
-  selectedPlace: null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {

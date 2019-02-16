@@ -42,12 +42,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
   },
   placeInput: {
     padding: 5,
     width: '70%',
-    alignSelf: 'flex-end',
     borderBottomWidth: 1,
     borderBottomColor: 'black',
     marginBottom: 10,
