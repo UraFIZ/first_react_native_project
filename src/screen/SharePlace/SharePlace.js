@@ -1,6 +1,7 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import { addPlace } from '../../store/actions/actions';
@@ -19,7 +20,6 @@ class SharePlace extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
         <PlaceInput onPressButton={this.placeAddedHadler} />

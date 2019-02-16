@@ -5,6 +5,8 @@ import {
   createStackNavigator,
   createBottomTabNavigator,
   createSwitchNavigator,
+  createAppContainer,
+  createDrawerNavigator,
 } from 'react-navigation';
 import { View, Text } from 'react-native';
 import AuthScreen from './src/screen/Auth/Auth';
@@ -12,6 +14,7 @@ import FindPlaceScreen from './src/screen/FindPlace/FindPlace';
 import SharePlaceScreen from './src/screen/SharePlace/SharePlace';
 import NavigationService from './NavigationService';
 import PlaceDetailScreen from './src/screen/PlaceDetail/PlaceDetail';
+import SideDrawerScreen from './src/screen/SideDrawer/SideDrawer';
 
 const CentredText = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -51,11 +54,14 @@ const Nav = createBottomTabNavigator(
     },
   },
 );
-
+const MainNavigator = createDrawerNavigator(
+  { shartStack, Nav },
+  { contentComponent: SideDrawerScreen },
+);
 const Swetch = createSwitchNavigator(
   {
     authNav,
-    Nav,
+    MainNavigator,
   },
   {
     initialRouteName: 'authNav',
@@ -70,7 +76,7 @@ const Swetch = createSwitchNavigator(
     },
   },
 );
-
+const AppNavigation = createAppContainer(Swetch);
 export default class App extends React.Component {
   state = {
     name: 'Anna',
@@ -79,7 +85,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Swetch
+      <AppNavigation
         ref={navigatorRef => {
           NavigationService.setTopLevelNavigator(navigatorRef);
         }}
