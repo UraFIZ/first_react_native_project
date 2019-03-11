@@ -1,7 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 // eslint-disable-next-line object-curly-newline
-import { View, TextInput, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { TextInput, withTheme, Button } from 'react-native-paper';
 
 class PlaceInput extends Component {
   state = {
@@ -24,15 +25,26 @@ class PlaceInput extends Component {
 
   render() {
     const { placeName } = this.state;
+    const { colors } = this.props.theme;
     return (
       <View style={styles.container}>
+        {/*        <Text style={{ color: colors.primary, fontFamily: fonts.medium, fontSize: 30 }}>Yo!!!</Text> */}
         <TextInput
           style={styles.placeInput}
           value={placeName}
           onChangeText={this.placeNameChangedHandler}
+          // theme={{ fonts: { thin: 'Open Sans' } }}
         />
         <TouchableOpacity style={styles.placeButton}>
-          <Button title="Add" onPress={this.placeSubmitHandler} />
+          <Button
+            color="black"
+            onPress={this.placeSubmitHandler}
+            theme={{ fonts: { medium: 'Open Sans' } }}
+            style={{ backgroundColor: colors.primary }}
+            // theme={{ fonts: { light: 'sans-serif-light' } }}
+          >
+            Press me
+          </Button>
         </TouchableOpacity>
       </View>
     );
@@ -51,11 +63,12 @@ const styles = StyleSheet.create({
     width: '70%',
     borderBottomWidth: 1,
     borderBottomColor: 'black',
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   placeButton: {
-    width: '30%',
+    width: 130,
+    // backgroundColor: 'green',
   },
 });
 
-export default PlaceInput;
+export default withTheme(PlaceInput);

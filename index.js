@@ -5,15 +5,28 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import configureStore from './src/store/configureStore';
 import App from './App';
 import { name as appName } from './app.json';
 
 const store = configureStore();
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 16,
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+};
 const RNRedux = () => (
   <Provider store={store}>
-    <App />
+    <PaperProvider theme={theme}>
+      <App />
+    </PaperProvider>
   </Provider>
 );
 
